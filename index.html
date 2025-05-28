@@ -2,62 +2,68 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Web AR Exhibit</title>
+    <title>Image Tracking AR Exhibit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <!-- A-Frame + AR.js -->
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ar.js@3.3.2/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar.js@3.3.2/aframe/build/aframe-ar-nft.min.js"></script>
+    
     <style>
       body, html {
         margin: 0;
         font-family: sans-serif;
         background: #000;
-        color: #fff;
+        color: white;
       }
       .overlay {
         position: absolute;
         top: 10px;
         left: 10px;
+        z-index: 10;
         background: rgba(0, 0, 0, 0.6);
         padding: 15px;
         border-radius: 8px;
         max-width: 300px;
-        z-index: 5;
       }
-      .marker-preview {
-        margin-top: 10px;
-        border: 1px solid #888;
+      .preview-img {
         width: 100%;
-      }
-      a {
-        color: #ffd700;
+        border: 1px solid #444;
+        margin-top: 10px;
       }
     </style>
   </head>
+
   <body>
-    <!-- Overlay instructions -->
+    <!-- Instructions -->
     <div class="overlay">
-      <h2>Welcome to the AR Exhibit</h2>
-      <p>Point your phone at the Hiro marker below to view the 3D model.</p>
-      <p>
-        <a href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/HIRO.jpg" target="_blank">
-          Open marker full-size
-        </a>
-        for printing or scanning.
-      </p>
-      <img src="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/HIRO.jpg" alt="Hiro marker" class="marker-preview" />
+      <h2>AR Exhibit (Image Tracking)</h2>
+      <p>Point your camera at the image below to view the 3D model.</p>
+      <img src="images/artestphoto.jpeg" alt="Tracking Image" class="preview-img" />
     </div>
 
     <!-- AR Scene -->
-    <a-scene embedded arjs>
-      <a-marker preset="hiro">
+    <a-scene
+      embedded
+      arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false;"
+      vr-mode-ui="enabled: false"
+    >
+      <!-- Image target -->
+      <a-nft
+        type="nft"
+        url="nft/marker"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance="0.01"
+        smoothThreshold="5"
+      >
         <a-entity
           gltf-model="model/Ambitheater_Nowhere.1.0glb.glb"
           scale="0.03 0.03 0.03"
           position="0 0 0"
           rotation="0 180 0"
         ></a-entity>
-      </a-marker>
+      </a-nft>
       <a-entity camera></a-entity>
     </a-scene>
   </body>
