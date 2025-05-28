@@ -1,48 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Web AR Exhibit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- A-Frame + AR.js -->
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ar.js@3.3.2/aframe/build/aframe-ar.min.js"></script>
     <style>
       body, html {
         margin: 0;
-        overflow: hidden;
         font-family: sans-serif;
+        background: #000;
+        color: #fff;
       }
       .overlay {
         position: absolute;
         top: 10px;
         left: 10px;
         background: rgba(0, 0, 0, 0.6);
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 10;
+        padding: 15px;
+        border-radius: 8px;
+        max-width: 300px;
+        z-index: 5;
+      }
+      .marker-preview {
+        margin-top: 10px;
+        border: 1px solid #888;
+        width: 100%;
+      }
+      a {
+        color: #ffd700;
       }
     </style>
   </head>
   <body>
+    <!-- Overlay instructions -->
     <div class="overlay">
-      <h3>Welcome to the Web AR Exhibit</h3>
-      <p>Point your camera at the <a href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/HIRO.jpg" target="_blank">Hiro marker</a>.</p>
+      <h2>Welcome to the AR Exhibit</h2>
+      <p>Point your phone at the Hiro marker below to view the 3D model.</p>
+      <p>
+        <a href="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/HIRO.jpg" target="_blank">
+          Open marker full-size
+        </a>
+        for printing or scanning.
+      </p>
+      <img src="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/HIRO.jpg" alt="Hiro marker" class="marker-preview" />
     </div>
 
+    <!-- AR Scene -->
     <a-scene embedded arjs>
-      <!-- Marker-based tracking -->
       <a-marker preset="hiro">
-        <!-- 3D object -->
         <a-entity
-  gltf-model="Ambitheater_Nowhere.1.0glb.glb"
-  scale="0.5 0.5 0.5"
-  position="0 0 0"
-></a-entity>
-
-        <a-text value="AR Exhibit Piece" position="-0.5 1 0" rotation="-90 0 0" color="white"></a-text>
+          gltf-model="model/Ambitheater_Nowhere.1.0glb.glb"
+          scale="0.03 0.03 0.03"
+          position="0 0 0"
+          rotation="0 180 0"
+        ></a-entity>
       </a-marker>
-
-      <!-- Camera -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
